@@ -1,0 +1,69 @@
+# Cursor Rules for Vercel-Supabase Message Board Project
+
+# Test-Driven Development (TDD) Rules
+- Write tests before implementing features
+- Follow the Red-Green-Refactor cycle:
+  1. Red: Write a failing test
+  2. Green: Write minimal code to pass the test
+  3. Refactor: Improve code while keeping tests passing
+
+# Testing Structure
+- Unit tests should be in `__tests__` directories
+- Test files should be named `*.test.ts` or `*.spec.ts`
+- Each component should have its own test file
+- API routes should have corresponding test files
+
+# Code Quality
+- Maximum line length: 100 characters
+- Use TypeScript strict mode
+- Follow ESLint rules
+- Prefer async/await over promises
+- Use meaningful variable and function names
+
+# Component Rules
+- Components should be small and focused
+- Props should be properly typed
+- Use React hooks appropriately
+- Implement error boundaries for critical components
+
+# Database Rules
+- All database queries should be tested
+- Use Supabase client in a consistent way
+- Implement proper error handling for database operations
+- Follow Row Level Security (RLS) policies
+
+# API Rules
+- All API endpoints should have tests
+- Implement proper error handling
+- Use appropriate HTTP status codes
+- Validate input data
+
+# Git Workflow
+- Write meaningful commit messages
+- Create feature branches for new features
+- Keep commits atomic and focused
+- Review code before merging
+
+# Documentation
+- Document complex functions and components
+- Keep README up to date
+- Document API endpoints
+- Include setup instructions
+
+# Performance
+- Test component rendering performance
+- Monitor API response times
+- Implement proper caching strategies
+- Optimize database queries
+
+# Security
+- Never expose sensitive data
+- Implement proper authentication
+- Follow security best practices
+- Regular security audits
+
+# Accessibility
+- Follow WCAG guidelines
+- Test with screen readers
+- Ensure keyboard navigation
+- Maintain proper contrast ratios 
