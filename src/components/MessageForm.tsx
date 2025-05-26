@@ -4,9 +4,10 @@ import { useState, FormEvent } from 'react'
 
 interface MessageFormProps {
   onSubmit: (data: { name: string; content: string }) => void;
+  disabled?: boolean;
 }
 
-export default function MessageForm({ onSubmit }: MessageFormProps) {
+export default function MessageForm({ onSubmit, disabled = false }: MessageFormProps) {
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
   const [errors, setErrors] = useState<{ name?: string; content?: string }>({})
@@ -55,6 +56,7 @@ export default function MessageForm({ onSubmit }: MessageFormProps) {
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           aria-invalid={!!errors.name}
           aria-describedby={errors.name ? 'name-error' : undefined}
+          disabled={disabled}
         />
         {errors.name && (
           <p className="mt-1 text-sm text-red-600" id="name-error">
@@ -75,6 +77,7 @@ export default function MessageForm({ onSubmit }: MessageFormProps) {
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           aria-invalid={!!errors.content}
           aria-describedby={errors.content ? 'message-error' : undefined}
+          disabled={disabled}
         />
         {errors.content && (
           <p className="mt-1 text-sm text-red-600" id="message-error">
@@ -85,9 +88,10 @@ export default function MessageForm({ onSubmit }: MessageFormProps) {
 
       <button
         type="submit"
-        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={disabled}
       >
-        Post Message
+        {disabled ? 'Posting...' : 'Post Message'}
       </button>
     </form>
   )
