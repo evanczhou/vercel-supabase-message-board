@@ -54,15 +54,16 @@
 - [x] Set up Supabase client:
   - [x] Create `lib/supabase.ts` for client configuration
 - [ ] Create main page components:
-  - [ ] Create message form component
+  - [x] Create message form component
+    - [x] Unit tests created and passing
   - [ ] Create message list component
   - [ ] Create message item component
 - [ ] Implement real-time subscription:
   - [ ] Set up Supabase real-time listener
   - [ ] Handle new message events
 - [ ] Add client-side validation:
-  - [ ] Check for non-empty fields
-  - [ ] Enforce 280-character limit
+  - [x] Check for non-empty fields
+  - [x] Enforce 280-character limit
 - [ ] Implement optimistic UI updates
 
 ### Phase 5: Styling & UX

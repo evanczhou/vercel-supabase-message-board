@@ -1,14 +1,15 @@
+'use client';
+
 import { useState, FormEvent } from 'react'
 
 interface MessageFormProps {
-  onSubmit?: (data: { name: string; content: string }) => Promise<void>
+  onSubmit: (data: { name: string; content: string }) => void;
 }
 
 export default function MessageForm({ onSubmit }: MessageFormProps) {
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
   const [errors, setErrors] = useState<{ name?: string; content?: string }>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const validateForm = () => {
     const newErrors: { name?: string; content?: string } = {}
@@ -34,17 +35,10 @@ export default function MessageForm({ onSubmit }: MessageFormProps) {
       return
     }
     
-    setIsSubmitting(true)
-    
-    try {
-      if (onSubmit) {
-        await onSubmit({ name, content })
-        setName('')
-        setContent('')
-      }
-    } finally {
-      setIsSubmitting(false)
-    }
+    onSubmit({ name, content })
+    setName('')
+    setContent('')
+    setErrors({})
   }
 
   return (
@@ -59,10 +53,13 @@ export default function MessageForm({ onSubmit }: MessageFormProps) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          disabled={isSubmitting}
+          aria-invalid={!!errors.name}
+          aria-describedby={errors.name ? 'name-error' : undefined}
         />
         {errors.name && (
-          <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+          <p className="mt-1 text-sm text-red-600" id="name-error">
+            {errors.name}
+          </p>
         )}
       </div>
 
@@ -76,19 +73,21 @@ export default function MessageForm({ onSubmit }: MessageFormProps) {
           onChange={(e) => setContent(e.target.value)}
           rows={3}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          disabled={isSubmitting}
+          aria-invalid={!!errors.content}
+          aria-describedby={errors.content ? 'message-error' : undefined}
         />
         {errors.content && (
-          <p className="mt-1 text-sm text-red-600">{errors.content}</p>
+          <p className="mt-1 text-sm text-red-600" id="message-error">
+            {errors.content}
+          </p>
         )}
       </div>
 
       <button
         type="submit"
-        disabled={isSubmitting}
-        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
-        {isSubmitting ? 'Sending...' : 'Send'}
+        Post Message
       </button>
     </form>
   )
